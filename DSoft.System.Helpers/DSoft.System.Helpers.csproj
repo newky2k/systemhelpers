@@ -1,7 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-
+		<Description>DSoft.System.Helpers is a library for useful helper classes, extenions and models</Description>
+		<PackageTags>.NET</PackageTags>
+		<PackageReleaseNotes>
+			Initial Release
+		</PackageReleaseNotes>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
-
+	
+	<ItemGroup>
+		<None Include="../README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+	
 </Project>

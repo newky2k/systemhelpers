@@ -13,7 +13,6 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-- group: titan
 - name: solution
   value: '**/*.sln'
 - name: buildPlatform
@@ -23,7 +22,7 @@ variables:
 - name: netVersion
   value: '9.x'
 
-name: $(titan_build_no).$(date:yyMM).$(date:dd)$(rev:r)
+name: 1.0.$(date:yyMM).$(date:dd)$(rev:r)
 steps:
 
 - task: NuGetToolInstaller@1
