@@ -21,6 +21,8 @@ variables:
   value: 'Release'
 - name: netVersion
   value: '9.x'
+- name: 'releaseSuffix'
+  value: ''
 
 name: 1.0.$(date:yyMM).$(date:dd)$(rev:r)
 steps:
@@ -35,29 +37,26 @@ steps:
     version: $(netVersion)
 
 - task: DotNetCoreCLI@2
-  displayName: dotnet restore
   inputs:
-    command: restore
-    projects: '**/*.sln'
-    feedsToUse: 'select'
-    vstsFeed: '2ee62add-e34e-4fc0-aa13-bc3a8223e9b9'
+    command: 'restore'
+    projects: '$(solution)'
 
 - task: DotNetCoreCLI@2
   displayName: dotnet build
   inputs:
     projects: '$(solution)'
-    arguments: '--configuration=$(buildConfiguration) /p:Platform="$(buildPlatform)" /p:Version=$(Build.BuildNumber) /p:AssemblyVersion=$(Build.BuildNumber) /p:FileVersion=$(Build.BuildNumber) '
+    arguments: '--configuration=$(buildConfiguration) /p:Platform="$(buildPlatform)" /p:Version=$(Build.BuildNumber)$(releaseSuffix) /p:AssemblyVersion=$(Build.BuildNumber) /p:FileVersion=$(Build.BuildNumber) '
 
 - task: CopyFiles@2
-  displayName: Copy nupkg files to staging
+  displayName: Copy Files to $(build.artifactstagingdirectory)
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**/Titan.Core.*.nupkg'
+    Contents: '**/DSoft.*.nupkg'
     TargetFolder: '$(build.artifactstagingdirectory)'
     flattenFolders: true
 
 - task: PublishBuildArtifacts@1
-  displayName: Punlish artifacts
+  displayName: Publish Artifacts drop
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
