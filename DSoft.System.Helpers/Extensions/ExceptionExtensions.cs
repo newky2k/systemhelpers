@@ -48,5 +48,24 @@ namespace System
 
             return JsonSerializer.Serialize(info, options ?? _defaultJsonSerializerOptions);
         }
+
+        /// <summary>
+        /// Serialize the <see cref="Exception"/> to a JSON byte array.
+        /// </summary>
+        /// <param name="ex">The exception</param>
+        /// <param name="includeInnerException">Control if to include inner exception</param>
+        /// <param name="includeStackTrace">Control if to include stack trace</param>
+        /// <param name="options">JSON options. By default nulls are not serialized and the string is indented</param>
+        /// <returns></returns>
+        public static byte[] ToJsonBytes(
+            this Exception ex,
+            bool includeInnerException = true,
+            bool includeStackTrace = false,
+            JsonSerializerOptions options = null)
+        {
+            var jsonString = ex.ToJson(includeInnerException, includeStackTrace, options);
+
+            return jsonString.ToBase64();
+        }
     }
 }

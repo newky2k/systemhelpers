@@ -11,6 +11,26 @@ namespace System
     /// </summary>
     public static class StringExtensions
     {
+
+        /// <summary>
+        /// Converts the string to a base64 byte array.
+        /// </summary>
+        /// <param name="plainText">The plain text.</param>
+        /// <param name="reverse">if set to <c>true</c> [reverse].</param>
+        /// <returns>System.String.</returns>
+        public static byte[] ToBase64(this string plainText, bool reverse = false)
+        {
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+
+            if (reverse)
+            {
+                plainTextBytes = plainTextBytes.Reverse().ToArray();
+            }
+
+
+            return plainTextBytes;
+        }
+
         /// <summary>
         /// Converts the string to a base64 string.
         /// </summary>
