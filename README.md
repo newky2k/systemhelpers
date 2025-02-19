@@ -6,4 +6,6 @@ Features:
 
  - Object mapper
  - Embedded Resource Helper
+ - Exception to JSON extension
+ - Base64 encode/decode string extensions
 
