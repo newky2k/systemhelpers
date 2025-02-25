@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".ci", ".ci", "{02EA681E-C7D
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSoft.System.Helpers.Maui", "DSoft.System.Helpers.Maui\DSoft.System.Helpers.Maui.csproj", "{39D732E7-245D-43AA-8F45-B0EE0B1AAC37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{CD3DCE7E-1F78-49DB-AE97-D0C1B0FAB016}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD3DCE7E-1F78-49DB-AE97-D0C1B0FAB016}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD3DCE7E-1F78-49DB-AE97-D0C1B0FAB016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39D732E7-245D-43AA-8F45-B0EE0B1AAC37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39D732E7-245D-43AA-8F45-B0EE0B1AAC37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39D732E7-245D-43AA-8F45-B0EE0B1AAC37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39D732E7-245D-43AA-8F45-B0EE0B1AAC37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,7 +4,7 @@
 		<Description>DSoft.System.Helpers is a library for useful helper classes, extenions and models</Description>
 		<PackageTags>.NET</PackageTags>
 		<PackageReleaseNotes>
-			Initial Release
+			Added MAUI library
 		</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
