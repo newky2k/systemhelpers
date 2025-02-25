@@ -40,7 +40,7 @@ namespace DSoft.System.Helpers.Maui
                 UnhandledException?.Invoke(sender, new UnhandledExceptionEventArgs(args.Exception, false));
             };
 
-#if IOS || MACCATALYSTs
+#if IOS || MACCATALYST
 
         // For iOS and Mac Catalyst
         // Exceptions will flow through AppDomain.CurrentDomain.UnhandledException,
