@@ -7,6 +7,8 @@
  * https://gist.github.com/myrup/43ee8038e0fd6ef4d31cbdd67449a997s
  * 
  */
+
+
 namespace DSoft.System.Helpers.Maui
 {
     /// <summary>
@@ -48,10 +50,8 @@ namespace DSoft.System.Helpers.Maui
         // 
         // See: https://github.com/xamarin/xamarin-macios/issues/15252
 
-        ObjCRuntime.Runtime.MarshalManagedException += (_, args) =>
-        {
-            args.ExceptionMode = ObjCRuntime.MarshalManagedExceptionMode.UnwindNativeCode;
-        };
+            ObjCRuntime.Runtime.MarshalManagedException += (_, e) => e.ExceptionMode = ObjCRuntime.MarshalManagedExceptionMode.UnwindNativeCode;
+            ObjCRuntime.Runtime.MarshalObjectiveCException += (_, e) => e.ExceptionMode = ObjCRuntime.MarshalObjectiveCExceptionMode.UnwindManagedCode;
 
 #elif ANDROID
 
