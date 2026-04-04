@@ -32,4 +32,10 @@
 	  <ProjectReference Include="..\DSoft.System.Helpers\DSoft.System.Helpers.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Platforms\Android\" />
+	  <Folder Include="Platforms\iOS\" />
+	  <Folder Include="Platforms\MacCatalyst\" />
+	</ItemGroup>
+
 </Project>

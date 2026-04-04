@@ -24,7 +24,8 @@ namespace System
 
             if (reverse)
             {
-                plainTextBytes = plainTextBytes.Reverse().ToArray();
+                
+                plainTextBytes = Enumerable.Reverse(plainTextBytes).ToArray();
             }
 
 
@@ -43,7 +44,7 @@ namespace System
 
             if (reverse)
             {
-                plainTextBytes = plainTextBytes.Reverse().ToArray();
+                plainTextBytes = Enumerable.Reverse(plainTextBytes).ToArray();
             }
 
             
@@ -68,7 +69,7 @@ namespace System
             }
 
             var plainTextBytes = Encoding.UTF8.GetBytes(result);
-            plainTextBytes = plainTextBytes.Reverse().ToArray();
+            plainTextBytes = Enumerable.Reverse(plainTextBytes).ToArray();
 
             return Encoding.UTF8.GetString(plainTextBytes);
         }
