@@ -74,4 +74,8 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\DSoft.System.Helpers.Maui\DSoft.System.Helpers.Maui.csproj" />
+    </ItemGroup>
+
 </Project>
