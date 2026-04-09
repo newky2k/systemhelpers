@@ -14,7 +14,7 @@ pool:
 
 variables:
 - name: solution
-  value: '**/*.sln'
+  value: '**/*.slnx'
 - name: buildPlatform
   value: 'Any CPU'
 - name: buildConfiguration

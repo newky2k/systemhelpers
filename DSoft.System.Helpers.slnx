@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/.ci/">
+    <File Path="azure-pipelines-mergetest.yml" />
+    <File Path="azure-pipelines-release.yml" />
+    <File Path="CLAUDE.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="global.json" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="DSoft.System.Helpers.Maui/DSoft.System.Helpers.Maui.csproj" />
+  <Project Path="DSoft.System.Helpers/DSoft.System.Helpers.csproj" />
+  <Project Path="SampleMAUI/SampleMAUI.csproj" />
+</Solution>
