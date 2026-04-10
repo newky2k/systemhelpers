@@ -6,12 +6,7 @@
 		<PackageReleaseNotes>
 			General Updates
 		</PackageReleaseNotes>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
-	
-	<ItemGroup>
-		<None Include="../README.md" Pack="true" PackagePath="\" />
-	</ItemGroup>
 	
 	<ItemGroup>
 	  <PackageReference Include="System.Text.Json" Version="9.0.2" />

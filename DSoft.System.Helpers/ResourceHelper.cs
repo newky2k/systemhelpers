@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 namespace DSoft.System.Helpers
 {
     /// <summary>
@@ -140,6 +141,34 @@ namespace DSoft.System.Helpers
             aStream.CopyTo(aMem);
 
             return aMem;
+        }
+
+        /// <summary>
+        /// Load an embedded resource and convert it to Json
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="assemblyType"></param>
+        /// <param name="name"></param>
+        /// <param name="resourcesFolder"></param>
+        /// <returns></returns>
+        public static T LoadJsonResource<T>(Type assemblyType, string name, string resourcesFolder = "Resources")
+        {
+            var stream = LoadResource(assemblyType, name, resourcesFolder);
+
+            if (stream != null)
+            {
+                stream.Position = 0;
+
+                string text;
+                using (var reader = new StreamReader(stream))
+                {
+                    text = reader.ReadToEnd();
+                }
+
+                return JsonSerializer.Deserialize<T>(text);
+            }
+
+            return default;
         }
     }
 }

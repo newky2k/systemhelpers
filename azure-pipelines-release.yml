@@ -14,13 +14,13 @@ pool:
 
 variables:
 - name: solution
-  value: '**/*.sln'
+  value: '**/*.slnx'
 - name: buildPlatform
   value: 'Any CPU'
 - name: buildConfiguration
   value: 'Release'
 - name: netVersion
-  value: '9.x'
+  value: '10.0.105'
 - name: 'releaseSuffix'
   value: ''
 
@@ -41,7 +41,7 @@ steps:
   inputs:
    targetType: 'inline'
    script: 
-     dotnet workload install android ios maccatalyst tvos macos maui wasm-tools
+     dotnet workload restore
 
 - task: DotNetCoreCLI@2
   displayName: dotnet restore

@@ -1,0 +1,24 @@
+﻿namespace SampleMAUI;
+
+public partial class MainPage : ContentPage
+{
+
+    public MainPage()
+    {
+        InitializeComponent();
+    }
+    
+    private async void OnThrowExceptionClicked(object? sender, EventArgs e)
+    {
+        // Fire a Task that throws but don't observe it. It flows through
+        // TaskScheduler.UnobservedTaskException → GlobalExceptionHandler,
+        // which is non-terminating so the alert can display on all platforms.
+        Task.Run(() => throw new InvalidOperationException("Demo unhandled exception via TaskScheduler"));
+
+        // Wait for the task to reach a faulted state, then nudge the GC so
+        // UnobservedTaskException fires promptly rather than at a random GC cycle.
+        await Task.Delay(100);
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+    }
+}

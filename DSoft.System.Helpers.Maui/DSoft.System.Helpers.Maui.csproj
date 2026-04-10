@@ -17,12 +17,7 @@
 		<PackageReleaseNotes>
 			Updates to iOS error handling
 		</PackageReleaseNotes>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<None Include="../README.md" Pack="true" PackagePath="\" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -30,6 +25,12 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\DSoft.System.Helpers\DSoft.System.Helpers.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Platforms\Android\" />
+	  <Folder Include="Platforms\iOS\" />
+	  <Folder Include="Platforms\MacCatalyst\" />
 	</ItemGroup>
 
 </Project>

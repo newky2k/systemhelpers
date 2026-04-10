@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SampleMAUI.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="dotnet_bot.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a submarine number ten" />
+
+            <Label
+                Text="DSoft.System.Helpers.Maui"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Label
+                Text="Exception Testing"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+            
+            <Button
+                Text="Throw Unhandled Exception"
+                SemanticProperties.Hint="Throws an exception on a background thread to demonstrate GlobalExceptionHandler"
+                Clicked="OnThrowExceptionClicked"
+                HorizontalOptions="Fill"
+                BackgroundColor="Crimson" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
