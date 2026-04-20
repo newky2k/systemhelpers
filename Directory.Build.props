@@ -16,13 +16,17 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Authors>newky2k</Authors>
 		<Owners>newky2k</Owners>
-
+		<PackageIcon>DSIcon.png</PackageIcon>
 		<RepositoryUrl>https://github.com/newky2k/systemhelpers</RepositoryUrl>
 		<PackageProjectUrl>https://github.com/newky2k/systemhelpers</PackageProjectUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\DSIcon.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<Description>DSoft.System.Helpers is a library for useful helper classes, extenions and models</Description>
+		<Description>DSoft.System.Helpers is a library for useful helper classes, extensions and models</Description>
 		<PackageTags>.NET</PackageTags>
 		<PackageReleaseNotes>
 			General Updates
