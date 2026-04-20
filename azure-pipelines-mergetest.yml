@@ -12,7 +12,7 @@ variables:
   solution: '**/*.slnx'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  netVersion: '10.0.105'
+  netVersion: '10.0.106'
 
 steps:  
 - task: NuGetToolInstaller@1
