@@ -34,7 +34,14 @@ namespace DSoft.System.Helpers.Maui
         /// <see cref="UnhandledExceptionReport"/> with exception details, app info,
         /// and device info similar to AppCenter / Sentry crash reports.
         /// </summary>
-        public static event EventHandler<UnhandledExceptionReportEventArgs> UnhandledExceptionOccurred = delegate { };
+        public static event EventHandler<UnhandledExceptionReportEventArgs> UnhandledExceptionOccurred;
+
+        /// <summary>
+        /// Ensures the global exception hooks are registered.
+        /// </summary>
+        public static void Init()
+        {
+        }
 
         /// <summary>
         /// Initializes static members of the <see cref="GlobalExceptionHandler"/> class.
@@ -64,8 +71,19 @@ namespace DSoft.System.Helpers.Maui
         //
         // See: https://github.com/xamarin/xamarin-macios/issues/15252
 
-            ObjCRuntime.Runtime.MarshalManagedException += (_, e) => e.ExceptionMode = ObjCRuntime.MarshalManagedExceptionMode.UnwindNativeCode;
-            ObjCRuntime.Runtime.MarshalObjectiveCException += (_, e) => e.ExceptionMode = ObjCRuntime.MarshalObjectiveCExceptionMode.UnwindManagedCode;
+            ObjCRuntime.Runtime.MarshalManagedException += (sender, e) =>
+            {
+                UnhandledException?.Invoke(sender, new UnhandledExceptionEventArgs(e.Exception, true));
+                FireReport(e.Exception, ExceptionSource.AppleMarshalManagedException, true);
+                e.ExceptionMode = ObjCRuntime.MarshalManagedExceptionMode.UnwindNativeCode;
+            };
+
+            ObjCRuntime.Runtime.MarshalObjectiveCException += (sender, e) =>
+            {
+                UnhandledException?.Invoke(sender, new UnhandledExceptionEventArgs(e.Exception, true));
+                FireReportFromNSException(e.Exception, ExceptionSource.AppleMarshalObjectiveCException, true);
+                e.ExceptionMode = ObjCRuntime.MarshalObjectiveCExceptionMode.UnwindManagedCode;
+            };
 
 #elif ANDROID
 
@@ -82,7 +100,7 @@ namespace DSoft.System.Helpers.Maui
 
             Java.Lang.Thread.DefaultUncaughtExceptionHandler = new CustomUncaughtExceptionHandler((t, e) =>
             {
-                UnhandledException?.Invoke(null, new UnhandledExceptionEventArgs(e, true));
+                UnhandledException?.Invoke(t, new UnhandledExceptionEventArgs(e, true));
                 FireReportFromThrowable(e, ExceptionSource.AndroidJavaThread, true);
             });
 #elif WINDOWS
@@ -135,6 +153,38 @@ namespace DSoft.System.Helpers.Maui
             UnhandledExceptionOccurred.Invoke(null, new UnhandledExceptionReportEventArgs(report));
         }
 
+#if IOS || MACCATALYST
+        private static void FireReportFromNSException(Foundation.NSException exception, ExceptionSource source, bool isTerminating)
+        {
+            if (UnhandledExceptionOccurred is null)
+                return;
+
+            var currentThread = Thread.CurrentThread;
+            var info = new ExceptionInfo
+            {
+                Timestamp = DateTimeOffset.UtcNow,
+                Type = $"{exception.GetType().FullName ?? nameof(Foundation.NSException)}: {exception.Name}",
+                Message = exception.Reason ?? string.Empty,
+                Source = "Objective-C",
+                StackTrace = exception.CallStackSymbols is { Length: > 0 }
+                    ? string.Join(Environment.NewLine, exception.CallStackSymbols)
+                    : string.Empty,
+                ThreadId = currentThread.ManagedThreadId,
+                ThreadName = currentThread.Name ?? string.Empty,
+            };
+
+            var report = new UnhandledExceptionReport
+            {
+                Exception = info,
+                Source = source,
+                IsTerminating = isTerminating,
+            };
+
+            PopulateContext(report);
+            UnhandledExceptionOccurred.Invoke(null, new UnhandledExceptionReportEventArgs(report));
+        }
+#endif
+
 #if ANDROID
         private static void FireReportFromThrowable(Java.Lang.Throwable throwable, ExceptionSource source, bool isTerminating)
         {
@@ -145,11 +195,11 @@ namespace DSoft.System.Helpers.Maui
             var info = new ExceptionInfo
             {
                 Timestamp = DateTimeOffset.UtcNow,
-                Type = throwable.GetType().FullName,
-                Message = throwable.Message,
-                StackTrace = throwable.StackTrace,
+                Type = throwable.GetType().FullName ?? nameof(Java.Lang.Throwable),
+                Message = throwable.Message ?? string.Empty,
+                StackTrace = throwable.StackTrace ?? string.Empty,
                 ThreadId = currentThread.ManagedThreadId,
-                ThreadName = currentThread.Name,
+                ThreadName = currentThread.Name ?? string.Empty,
             };
 
             var report = new UnhandledExceptionReport

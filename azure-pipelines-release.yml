@@ -20,7 +20,7 @@ variables:
 - name: buildConfiguration
   value: 'Release'
 - name: netVersion
-  value: '10.0.106'
+  value: '10.0.108'
 - name: 'releaseSuffix'
   value: ''
 

@@ -30,7 +30,21 @@ This is a compilation of some of the the code I've created and used over the yea
 | `UnhandledException` | `UnhandledExceptionEventArgs` | Drop-in replacement for `AppDomain.CurrentDomain.UnhandledException` |
 | `UnhandledExceptionOccurred` | `UnhandledExceptionReportEventArgs` | Rich crash report with exception details, app info, and device info |
 
-Subscribe to either event early in app startup (e.g. in `App()`) to activate the handler:
+Call `GlobalExceptionHandler.Init()` early in app startup, then subscribe to either event:
+
+```csharp
+public static MauiApp CreateMauiApp()
+{
+    GlobalExceptionHandler.Init();
+
+    var builder = MauiApp.CreateBuilder();
+    // configure MAUI app...
+
+    return builder.Build();
+}
+```
+
+You can also subscribe in `App()` or another startup location:
 
 ```csharp
 public App()
@@ -56,7 +70,10 @@ private void OnUnhandledExceptionOccurred(object? sender, UnhandledExceptionRepo
 | Android | `AndroidEnvironment.UnhandledExceptionRaiser` |
 | Android | `Java.Lang.Thread.DefaultUncaughtExceptionHandler` |
 | iOS / Mac Catalyst | `ObjCRuntime.Runtime.MarshalManagedException` |
+| iOS / Mac Catalyst | `ObjCRuntime.Runtime.MarshalObjectiveCException` |
 | Windows | `Microsoft.UI.Xaml.Application.Current.UnhandledException` + first-chance exception workaround |
+
+On iOS and Mac Catalyst, `MarshalManagedException` and `MarshalObjectiveCException` raise reports directly before the runtime unwind mode is set. This captures exceptions that cross the managed/native boundary and may not produce an `AppDomain.CurrentDomain.UnhandledException` report.
 
 #### UnhandledExceptionReport
 
@@ -81,7 +98,7 @@ DeviceIdiom       string           Phone / Tablet / Desktop / etc.
 DeviceName        string           Device name as reported by the OS
 ```
 
-`ExceptionSource` identifies which hook fired: `AppDomain`, `TaskScheduler`, `Android`, `AndroidJavaThread`, or `WindowsXaml`.
+`ExceptionSource` identifies which hook fired: `AppDomain`, `TaskScheduler`, `Android`, `AndroidJavaThread`, `AppleMarshalManagedException`, `AppleMarshalObjectiveCException`, or `WindowsXaml`.
 
 ---
 
