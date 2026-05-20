@@ -17,6 +17,12 @@ public enum ExceptionSource
     /// <summary>Java.Lang.Thread.DefaultUncaughtExceptionHandler</summary>
     AndroidJavaThread,
 
+    /// <summary>ObjCRuntime.Runtime.MarshalManagedException (iOS / Mac Catalyst)</summary>
+    AppleMarshalManagedException,
+
+    /// <summary>ObjCRuntime.Runtime.MarshalObjectiveCException (iOS / Mac Catalyst)</summary>
+    AppleMarshalObjectiveCException,
+
     /// <summary>Microsoft.UI.Xaml.Application.Current.UnhandledException (Windows)</summary>
     WindowsXaml,
 }
