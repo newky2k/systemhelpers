@@ -34,7 +34,7 @@ namespace DSoft.System.Helpers.Maui
         /// <see cref="UnhandledExceptionReport"/> with exception details, app info,
         /// and device info similar to AppCenter / Sentry crash reports.
         /// </summary>
-        public static event EventHandler<UnhandledExceptionReportEventArgs> UnhandledExceptionOccurred = delegate { };
+        public static event EventHandler<UnhandledExceptionReportEventArgs> UnhandledExceptionOccurred;
 
         /// <summary>
         /// Initializes static members of the <see cref="GlobalExceptionHandler"/> class.
